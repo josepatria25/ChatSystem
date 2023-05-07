@@ -1,6 +1,7 @@
 <script setup>
-import { useQuasar } from 'quasar'
-import { ref, computed } from 'vue'
+import { useQuasar } from 'quasar';
+import { ref, computed } from 'vue';
+import { useAuth } from '@vueuse/firebase/useAuth';
 
 const conversations = [
   {
@@ -62,13 +63,14 @@ const conversations = [
       currentConversationIndex.value = index
     }
 
+const a = false;
 
 </script>
 
 <template>
   <div class="WAL position-relative bg-grey-4" :style="style">
     <q-layout view="lHh Lpr lFf" class="WAL__layout shadow-3" container>
-      <q-header elevated>
+      <q-header elevated v-if="a">
         <q-toolbar class="bg-grey-3 text-black">
           <q-btn
             round
@@ -94,6 +96,7 @@ const conversations = [
         show-if-above
         bordered
         :breakpoint="690"
+        v-if="a"
       >
         <q-toolbar class="bg-grey-3">
 
@@ -174,15 +177,14 @@ const conversations = [
         </q-scroll-area>
       </q-drawer>
 
-      <q-page-container class="bg-grey-2">
+      <q-page-container class="bg-grey-2" >
         <router-view />
       </q-page-container>
 
-      <q-footer>
+      <q-footer v-if="a">
         <q-toolbar class="bg-grey-3 text-black row">
-          <q-btn round flat icon="insert_emoticon" class="q-mr-sm" />
           <q-input rounded outlined dense class="WAL__field col-grow q-mr-sm" bg-color="white" v-model="message" placeholder="Type a message" />
-          <q-btn round flat icon="mic" />
+          <q-btn round flat icon="send" />
         </q-toolbar>
       </q-footer>
     </q-layout>
